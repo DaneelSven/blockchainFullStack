@@ -1,0 +1,23 @@
+{
+  "name": "blockchainFullStack",
+  "version": "1.0.0",
+  "description": "blockchainFullStack",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaneelSven/blockchainFullStack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DaneelSven/blockchainFullStack/issues"
+  },
+  "homepage": "https://github.com/DaneelSven/blockchainFullStack#readme",
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}

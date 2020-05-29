@@ -4,7 +4,10 @@
   "description": "blockchainFullStack",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "dev-peer": "cross-env GENERATE_PEER_PORT='true' nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +21,15 @@
   },
   "homepage": "https://github.com/DaneelSven/blockchainFullStack#readme",
   "devDependencies": {
-    "jest": "^23.6.0"
+    "cross-env": "^5.2.0",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.4"
   },
   "dependencies": {
-    "hex-to-binary": "^1.0.1"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "hex-to-binary": "^1.0.1",
+    "pubnub": "^4.21.6",
+    "request": "^2.88.0"
   }
 }

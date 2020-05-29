@@ -1,7 +1,7 @@
 //static functions when you use this function on the class itself and not the instance of a class
 const hexToBinary = require("hex-to-binary");
 const { GENESIS_DATA, MINE_RATE } = require("../config");
-const cryptoHash = require("../util/crypto-hash");
+const { cryptoHash } = require("../util/");
 
 class Block {
   constructor({ timestamp, lastHash, hash, data, nonce, difficulty }) {

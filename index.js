@@ -28,6 +28,9 @@ const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 //make the api body to receive json objects
 app.use(bodyParser.json());
 
+// make sure that other files in client dir can be served to the frontend.
+app.use(express.static(path.join(__dirname, "client/dist")));
+
 // create a http get request to read data from the backend.
 app.get("/api/blocks", (request, response) => {
   response.json(blockchain.chain);
@@ -96,7 +99,7 @@ app.get("/api/wallet-info", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/index.html"));
+  res.sendFile(path.join(__dirname, "./client/dist/index.html"));
 });
 
 const syncWithRootState = () => {
@@ -127,6 +130,54 @@ const syncWithRootState = () => {
     }
   );
 };
+
+const walletFoo = new Wallet();
+const walletBar = new Wallet();
+
+const generateWalletTransaction = ({ recipient, amount }) => {
+  const transaction = wallet.createTransaction({
+    recipient,
+    amount,
+    chain: blockchain.chain,
+  });
+
+  transactionPool.setTransaction(transaction);
+};
+
+const walletAction = () =>
+  generateWalletTransaction({
+    wallet,
+    recipient: walletFoo.publicKey,
+    amount: 5,
+  });
+
+const walletFooAction = () =>
+  generateWalletTransaction({
+    wallet,
+    recipient: walletBar.publicKey,
+    amount: 10,
+  });
+
+const walletBarAction = () =>
+  generateWalletTransaction({
+    wallet,
+    recipient: wallet.publicKey,
+    amount: 15,
+  });
+
+for (let i = 0; i < 10; i++) {
+  if (i % 3 === 0) {
+    walletAction();
+    walletFooAction();
+  } else if (i % 3 === 1) {
+    walletAction();
+    walletBarAction();
+  } else {
+    walletFooAction();
+    walletBarAction();
+  }
+  transactionMiner.mineTransactions();
+}
 
 // when the app starts up it will start listening to request until it is told not to do
 let PEER_PORT;
